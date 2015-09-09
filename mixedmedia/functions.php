@@ -104,7 +104,7 @@ function post_theme_activate(){
 	update_option('sidebars_widgets', $active_widgets);
 	
 	
-	 add_widget_to_sidebar( 'home-column-1-sidebar', 'sticky-posts',
+	 add_widget_to_sidebar( 'upcoming-events-sidebar', 'sticky-posts',
 			array (
 				'title' 	=> 'This Weekend',
 				'title_link' => get_category_link( get_cat_ID( 'Events' ) ),
