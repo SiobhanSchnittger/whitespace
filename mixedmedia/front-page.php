@@ -36,7 +36,12 @@ get_header(); ?>
             </div><!-- #home-main-header -->
 		</div><!-- #row -->
         
-        
+        <div class="row home-events-posters">
+				<div class="col-xs-4 col-md-4">
+					<?php if ( is_active_sidebar( 'home-column-1-sidebar' ) ) { 
+						dynamic_sidebar( 'home-column-1-sidebar' ); 
+					} ?>
+		</div><!-- #row home-events-posters-->
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

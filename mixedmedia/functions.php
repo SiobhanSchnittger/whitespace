@@ -93,6 +93,51 @@ function mixedmedia_content_width() {
 add_action( 'after_setup_theme', 'mixedmedia_content_width', 0 );
 
 /**
+ * home sidebar setup
+ *
+ */
+function post_theme_activate(){
+	
+	$active_widgets = get_option( 'sidebars_widgets' );
+	$active_widgets['wp_inactive_widgets'] = array();
+	
+	update_option('sidebars_widgets', $active_widgets);
+	
+	
+	 add_widget_to_sidebar( 'home-column-1-sidebar', 'sticky-posts',
+			array (
+				'title' 	=> 'This Weekend',
+				'title_link' => get_category_link( get_cat_ID( 'Events' ) ),
+				'number' => '3',
+				'post_types' => 'post',
+				'cats' => get_cat_ID( 'Events' ),
+				'show_excerpt' => true,
+				'show_title' => true,
+				'atcat' => false,
+				'thumb_w' => 150,
+				'thumb_h' => 100,
+				'thumb_crop' => 1,
+				'excerpt_length' => 10,
+				'excerpt_readmore' => __('Read more &rarr;', 'upw'),
+				'order' => 'DESC',
+				'orderby' => 'date',
+				'morebutton_text' => __('View More Posts', 'upw'),
+				'morebutton_url' => site_url(),
+				'sticky' => 'show',
+				'show_cats' => false,
+				'show_tags' => false,
+				'show_date' => false,
+				'show_time' => false,
+				'show_author' => false,
+				'show_content' => false,
+				'show_readmore' => false,
+				'show_thumbnail' => true,
+				'custom_fields' => '',
+				'show_morebutton' => false
+			)
+		);
+}
+/**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
@@ -107,7 +152,21 @@ function mixedmedia_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+
+	register_sidebar(array(
+			'name'          => 'Home Column 1',
+			'id'            => 'home-column-1-sidebar',
+			'before_widget' => '<section class="widget %1$s %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3>',
+			'after_title'   => '</h3>',
+	) );
+
 }
+
+
+
+
 add_action( 'widgets_init', 'mixedmedia_widgets_init' );
 
 /**
