@@ -141,7 +141,7 @@ function post_theme_activate(){
 			array (
 				'title' 	=> 'From the Blog',
 				'title_link' => get_category_link( get_cat_ID( 'Blog' ) ),
-				'number' => '2',
+				'number' => '4',
 				'post_types' => 'post',
 				'cats' => get_cat_ID( 'Blog' ),
 				'show_excerpt' => true,

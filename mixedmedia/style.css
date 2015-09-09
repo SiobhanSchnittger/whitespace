@@ -533,12 +533,12 @@ a:active {
 --------------------------------------------------------------*/
 
 .nav-wrap {
-	padding: 50px 15px 0 75px;
+	padding: 50px 15px 5px 75px;
     margin-right: auto;
     margin-left: auto;
 	min-height: 100px;
-	margin-bottom: 20px;
-
+	margin-bottom: 0px;
+	border-bottom: 1px solid #ddd;
 
 }
 
@@ -775,6 +775,10 @@ a:active {
 	text-align: center;
 }
 
+.upw-posts article {
+	border: none !important;
+}
+
 .home-events-posters .upw-posts article {
 	display: inline-block;
 	width: 30%;
@@ -783,7 +787,7 @@ a:active {
 
 .blog-posts .upw-posts article {
 	display: inline-block;
-	width: 30%;
+	width: 20%;
 	
 }
 
