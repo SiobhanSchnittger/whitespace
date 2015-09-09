@@ -576,7 +576,6 @@ a:active {
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 	float: left;
 	position: absolute;
-	top: 4.4em;
 	left: -999em;
 	z-index: 99999;
 	min-width: 180px;
@@ -592,6 +591,11 @@ a:active {
 	color: #444;
 	border-bottom: 1px solid #e7e7e7;
 	padding: 10px 20px;
+}
+
+.main-navigation > div > ul > li > a {
+	padding: 10px 15px 0;
+	line-height: 40px;
 }
 
 .main-navigation ul ul li {
@@ -789,6 +793,30 @@ a:active {
 	display: inline-block;
 	width: 20%;
 	
+}
+
+.event-day {
+	display: block;
+	font-family: 'Lato';
+    font-weight: 300;
+    font-size: .9em;
+	text-transform: uppercase;
+	margin-bottom: 15px;
+}
+
+.event-date {
+	display: block;
+	font-family: 'Lato';
+    font-weight: 400;
+    font-size: 1.7em;
+	margin-bottom: 15px;
+	color: #e55b97;
+}
+
+.upw-posts .entry-title {
+	font-family: 'Lato';
+    font-weight: 400;
+    font-size: 1.2em;
 }
 
 .home-events-posters a.more-link  {
