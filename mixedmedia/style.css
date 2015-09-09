@@ -781,6 +781,12 @@ a:active {
 	
 }
 
+.blog-posts .upw-posts article {
+	display: inline-block;
+	width: 30%;
+	
+}
+
 .home-events-posters a.more-link  {
 	border: 1px solid pink;
     border-radius: 3px;
