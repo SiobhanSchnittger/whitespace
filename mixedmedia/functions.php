@@ -136,6 +136,39 @@ function post_theme_activate(){
 				'show_morebutton' => false
 			)
 		);
+		
+		 add_widget_to_sidebar( 'blog-posts-sidebar', 'sticky-posts',
+			array (
+				'title' 	=> 'From the Blog',
+				'title_link' => get_category_link( get_cat_ID( 'Blog' ) ),
+				'number' => '2',
+				'post_types' => 'post',
+				'cats' => get_cat_ID( 'Blog' ),
+				'show_excerpt' => true,
+				'show_title' => true,
+				'atcat' => false,
+				'thumb_w' => 150,
+				'thumb_h' => 100,
+				'thumb_crop' => 1,
+				'excerpt_length' => 10,
+				'excerpt_readmore' => __('More Info &rarr;', 'upw'),
+				'order' => 'DESC',
+				'orderby' => 'date',
+				'morebutton_text' => __('View More Posts', 'upw'),
+				'morebutton_url' => site_url(),
+				'sticky' => 'show',
+				'show_cats' => false,
+				'show_tags' => false,
+				'show_date' => false,
+				'show_time' => false,
+				'show_author' => false,
+				'show_content' => false,
+				'show_readmore' => false,
+				'show_thumbnail' => true,
+				'custom_fields' => '',
+				'show_morebutton' => false
+			)
+		);
 }
 /**
  * Register widget area.
@@ -158,8 +191,17 @@ function mixedmedia_widgets_init() {
 			'id'            => 'upcoming-events-sidebar',
 			'before_widget' => '<section class="widget %1$s %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h3>',
-			'after_title'   => '</h3>',
+			'before_title'  => '<h1>',
+			'after_title'   => '</h1>',
+	) );
+	
+	register_sidebar(array(
+			'name'          => 'From the Blog',
+			'id'            => 'blog-posts-sidebar',
+			'before_widget' => '<section class="widget %1$s %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h1>',
+			'after_title'   => '</h1>',
 	) );
 
 }

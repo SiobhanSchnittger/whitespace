@@ -30,11 +30,7 @@ get_header(); ?>
 			<?php get_template_part( 'template-parts/content', 'none' ); ?>
 
 		<?php endif; ?>
-        <div class="row">
-        	<div class="home-main-header">
-            	<h1>This Weekend</h1>
-            </div><!-- #home-main-header -->
-		</div><!-- #row -->
+       
         
         <div class="row home-events-posters">
 				<div class="col-xs-4 col-md-4">
@@ -42,6 +38,13 @@ get_header(); ?>
 						dynamic_sidebar( 'upcoming-events-sidebar' ); 
 					} ?>
 		</div><!-- #row home-events-posters-->
+        
+        <div class="row blog-posts">
+				<div class="col-xs-4 col-md-4">
+					<?php if ( is_active_sidebar( 'blog-posts-sidebar' ) ) { 
+						dynamic_sidebar( 'blog-posts-sidebar' ); 
+					} ?>
+		</div><!-- #row blog-posts-->
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
