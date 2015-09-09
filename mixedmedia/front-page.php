@@ -25,12 +25,17 @@ get_header(); ?>
 
 			
 
-
 		<?php else : ?>
 
 			<?php get_template_part( 'template-parts/content', 'none' ); ?>
 
 		<?php endif; ?>
+        <div class="row">
+        	<div class="home-main-header">
+            	<h1>This Weekend</h1>
+            </div><!-- #home-main-header -->
+		</div><!-- #row -->
+        
         
 
 		</main><!-- #main -->
