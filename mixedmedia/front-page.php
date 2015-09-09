@@ -45,6 +45,9 @@ get_header(); ?>
 						dynamic_sidebar( 'blog-posts-sidebar' ); 
 					} ?>
 		</div><!-- #row blog-posts-->
+        
+       
+		</div><!-- #row blog-posts-->
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

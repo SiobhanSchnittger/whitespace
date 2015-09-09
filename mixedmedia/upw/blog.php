@@ -12,27 +12,45 @@
   </div>
 <?php endif; ?>
 
-<div class="upw-posts hfeed row event-wrap">
+<div class="upw-posts hfeed blog-wrap">
 
-  <?php if ($upw_query->have_posts()) : ?>
-
+  <?php if ($upw_query->have_posts()) : 
+  	$counter = 0;
+  ?>
+	<div class="row">
       <?php while ($upw_query->have_posts()) : $upw_query->the_post(); ?>
 
-        <?php $current_post = ($post->ID == $current_post_id && is_single()) ? 'active col-3' : 'col-3'; ?>
-
+        <?php $current_post = ($post->ID == $current_post_id && is_single()) ? 'active' : ''; 
+		$col_class = 'col-4';
+		$thumb_size = 'thumbnail';
+		if($upw_query->post_count > 5) {
+			if($counter < 2) {
+				$col_class = 'col-2';
+				$thumb_size = 'medium';
+			} else if($counter == 2) { ?>
+				</div>
+				<div class="row">
+			<?php }
+		}
+		
+		
+		?>
+        
+		<div class="<?php echo $col_class; ?>">
         <article <?php post_class($current_post); ?>>
 
           <header>
           
-          	<?php
-                  $event_date = get_post_meta($post->ID, '_event_date', true);
-				 if(!empty($event_date)){
-					$date = date_create($event_date);
-					$event_date = $date->format('l jS F');
-					$parts = explode(' ', $event_date);
-					echo '<div><span class="event-day">'.$parts[0].'</span><span class="event-date">'.$parts[1].' '.$parts[2].'</span></div>';
-				 }
-            ?>
+          	
+   
+            <?php if (current_theme_supports('post-thumbnails') && $instance['show_thumbnail'] && has_post_thumbnail()) : ?>
+              <div class="entry-image">
+                <a href="<?php the_permalink(); ?>" rel="bookmark">
+                  <?php the_post_thumbnail($thumb_size); ?>
+                </a>
+              </div>
+            <?php endif; ?>
+			
             
 		  	<?php if (get_the_title() && $instance['show_title']) : ?>
               <h4 class="entry-title">
@@ -40,14 +58,6 @@
                   <?php the_title(); ?>
                 </a>
               </h4>
-            <?php endif; ?>
-   
-            <?php if (current_theme_supports('post-thumbnails') && $instance['show_thumbnail'] && has_post_thumbnail()) : ?>
-              <div class="entry-image">
-                <a href="<?php the_permalink(); ?>" rel="bookmark">
-                  <?php the_post_thumbnail($instance['thumb_size']); ?>
-                </a>
-              </div>
             <?php endif; ?>
 
             <?php if ($instance['show_date'] || $instance['show_author'] || $instance['show_comments']) : ?>
@@ -127,9 +137,11 @@
           </footer>
 
         </article>
-
-      <?php endwhile; ?>
-
+		</div>
+      <?php 
+	  $counter = $counter + 1;
+	  endwhile; ?>
+	</div>
   <?php else : ?>
 
     <p class="upw-not-found">

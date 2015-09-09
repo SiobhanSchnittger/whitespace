@@ -137,11 +137,11 @@ function post_theme_activate(){
 			)
 		);
 		
-		 add_widget_to_sidebar( 'blog-posts-sidebar', 'sticky-posts',
+		add_widget_to_sidebar( 'blog-posts-sidebar', 'sticky-posts',
 			array (
 				'title' 	=> 'From the Blog',
 				'title_link' => get_category_link( get_cat_ID( 'Blog' ) ),
-				'number' => '4',
+				'number' => '6',
 				'post_types' => 'post',
 				'cats' => get_cat_ID( 'Blog' ),
 				'show_excerpt' => true,
@@ -169,6 +169,8 @@ function post_theme_activate(){
 				'show_morebutton' => false
 			)
 		);
+
+		
 }
 /**
  * Register widget area.
@@ -203,6 +205,7 @@ function mixedmedia_widgets_init() {
 			'before_title'  => '<h1>',
 			'after_title'   => '</h1>',
 	) );
+	
 
 }
 
