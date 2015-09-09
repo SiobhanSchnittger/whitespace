@@ -118,7 +118,7 @@ function post_theme_activate(){
 				'thumb_h' => 100,
 				'thumb_crop' => 1,
 				'excerpt_length' => 10,
-				'excerpt_readmore' => __('Read more &rarr;', 'upw'),
+				'excerpt_readmore' => __('More Info &rarr;', 'upw'),
 				'order' => 'DESC',
 				'orderby' => 'date',
 				'morebutton_text' => __('View More Posts', 'upw'),

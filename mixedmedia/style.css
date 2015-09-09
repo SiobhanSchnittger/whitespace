@@ -773,6 +773,23 @@ a:active {
 	margin-top: 100px;
 }
 
+.home-events-posters {
+	text-align: center;
+}
+
+.home-events-posters .upw-posts article {
+	display: inline-block;
+	width: 30%;
+	
+}
+
+.home-events-posters a.more-link  {
+	border: 1px solid pink;
+    border-radius: 3px;
+    padding: 10px;
+    text-decoration: none;
+}
+
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
