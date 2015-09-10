@@ -14,14 +14,29 @@
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
+    
+    <div class="row">
+			<div class="col-3">
+				<?php if ( is_active_sidebar( 'footer-column-1-sidebar' ) ) { 
+					dynamic_sidebar( 'footer-column-1-sidebar' ); 
+				} ?>
+			</div>
+			<div class="col-3">
+				<?php if ( is_active_sidebar( 'footer-column-2-sidebar' ) ) { 
+					dynamic_sidebar( 'footer-column-2-sidebar' ); 
+				} ?>
+			</div>
+			<div class="col-3 social">
+				<?php if ( is_active_sidebar( 'footer-column-3-sidebar' ) ) { 
+					dynamic_sidebar( 'footer-column-3-sidebar' ); 
+				} ?>
+			</div>
+		</div>	
+        
+        
 		<div class="site-info">
-			<a href=" ">Mixedmedia &copy; 2015</a>
-			<span class="sep"> | </span>
-            30 Fortunes Walk, Citywest, Co. Dublin. 
-            <span class="sep"> | </span>
-            +353 85 1566645
-            <span class="sep"> | </span>
-            <a href="mailto:hello@mixedmedia.ie">hello@mixedmedia.ie</a>
+	
+           
 			
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->

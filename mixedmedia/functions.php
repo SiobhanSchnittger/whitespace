@@ -169,6 +169,58 @@ function post_theme_activate(){
 				'show_morebutton' => false
 			)
 		);
+		
+		$locations = get_theme_mod('nav_menu_locations');
+	
+		$location = 'left-footer';
+		$menu_id = null;
+		if (isset($locations[$location])) {
+			$menu_id = $locations[$location];
+		}
+		if(!empty($menu_id)){
+			add_widget_to_sidebar( 'footer-column-1-sidebar', 'nav_menu',
+				array (
+					'nav_menu' 	=> $menu_id
+				)
+			);
+		}
+		
+		$location = 'middle-footer';
+		$menu_id = null;
+		if (isset($locations[$location])) {
+			$menu_id = $locations[$location];
+		}
+		if(!empty($menu_id)){
+			add_widget_to_sidebar( 'footer-column-2-sidebar', 'nav_menu',
+				array (
+					'nav_menu' 	=> $menu_id
+				)
+			);
+		}
+		
+		$location = 'right-footer';
+		$menu_id = null;
+		if (isset($locations[$location])) {
+			$menu_id = $locations[$location];
+		}
+		if(!empty($menu_id)){
+			add_widget_to_sidebar( 'footer-column-3-sidebar', 'nav_menu',
+				array (
+					'nav_menu' 	=> $menu_id
+				)
+			);
+		}
+		
+		register_nav_menus(array(
+			'primary' => __('Primary Navigation'),
+			'left-footer' => __('Left Footer Navigation Menu'),
+			'middle-footer' => __('Middle Footer Navigation Menu'),
+			'right-footer' => __('Right Footer Navigation Menu'),
+		));
+	
+		add_menu_to_location('Left Footer Navigation Menu', 'left-footer');
+		add_menu_to_location('Middle Footer Navigation Menu', 'middle-footer');
+		add_menu_to_location('Right Footer Navigation Menu', 'right-footer');
 
 		
 }
@@ -205,6 +257,33 @@ function mixedmedia_widgets_init() {
 			'before_title'  => '<h1>',
 			'after_title'   => '</h1>',
 	) );
+	
+	register_sidebar(array(
+		'name'          => 'Footer Column 1',
+		'id'            => 'footer-column-1-sidebar',
+		'before_widget' => '<section class="widget %1$s %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3>',
+		'after_title'   => '</h3>',
+	));
+	
+	register_sidebar(array(
+		'name'          => 'Footer Column 2',
+		'id'            => 'footer-column-2-sidebar',
+		'before_widget' => '<section class="widget %1$s %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3>',
+		'after_title'   => '</h3>',
+	));
+	
+	register_sidebar(array(
+		'name'          => 'Footer Column 3',
+		'id'            => 'footer-column-3-sidebar',
+		'before_widget' => '<section class="widget %1$s %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3>',
+		'after_title'   => '</h3>',
+	));
 	
 
 }
