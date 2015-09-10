@@ -525,7 +525,7 @@ input[type="password"],
 input[type="search"],
 textarea {
 	color: #666;
-	border: 1px solid #ccc;
+	border: 2px solid #e55b97;
 	border-radius: 3px;
 }
 
@@ -906,6 +906,15 @@ a:active {
 	display: inline;
 }
 
+header.page-header {
+	margin: 1.5em 0 0 7.85em;
+}
+
+.page .entry-header {
+	margin:  1.5em 0 0 7.85em;
+}
+
+
 .page-content,
 .entry-content,
 .entry-summary {
@@ -981,12 +990,12 @@ a:active {
 .site-footer {
 	margin-top: 60px;
     padding-bottom: 50px;
-    color: #000;
-    background: #e55b97;
+    color: #e55b97;
+    background: #000;
 }
 
 .site-footer a {
-    color: #000;
+    color: #e55b97;
 }
 
 /*--------------------------------------------------------------
