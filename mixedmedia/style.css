@@ -946,6 +946,36 @@ header.page-header {
 	display: block;
 }
 
+/*--------------------------------------------------------------
+## Contact Us Page
+--------------------------------------------------------------*/
+.contact-form {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.contact-form label {
+	font-family: 'Lato', Arial, sans-serif;
+	font-weight: 300 !important;
+	text-transform: uppercase;
+}
+
+.contact-form input[type=email], .contact-form input[type=text] {
+	width: 80% !important;
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+	background: transparent;
+    font-size: 1.2rem;
+    font-family: 'Lato', Arial, sans-serif;
+	font-weight: 300;
+    text-transform: uppercase;
+    border: 2px solid #e55b97;
+    box-shadow: none;
+    text-shadow: none;
+    padding: .6em 1em 0.6em;
+	
+}
 
 /*--------------------------------------------------------------
 # Header
@@ -989,13 +1019,36 @@ header.page-header {
 
 .site-footer {
 	margin-top: 60px;
-    padding-bottom: 50px;
+    padding: 0em 0 1em 4em;
     color: #e55b97;
     background: #000;
 }
 
+.site-info {
+	display: none;
+}
+
+.site-footer h3 {
+	font-family: 'Lato', Arial, sans-serif;
+	font-weight: 700;
+}
+
 .site-footer a {
     color: #e55b97;
+	text-decoration: none;
+}
+
+.site-footer ul {
+   margin: 0;
+   padding: 0;
+}
+
+.site-footer ul li {
+   list-style: none;
+}
+
+.site-footer .genericon {
+	font-size: 3em !important;
 }
 
 /*--------------------------------------------------------------
