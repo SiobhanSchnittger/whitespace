@@ -1,5 +1,5 @@
 /*
-Theme Name: _whitespace
+Theme Name: mixedmedia
 Theme URI: http://underscores.me/
 Author: Underscores.me
 Author URI: http://underscores.me/
@@ -7,7 +7,7 @@ Description: Description
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: _whitespace
+Text Domain: mixedmedia
 Tags:
 
 This theme, like WordPress, is licensed under the GPL.
@@ -1001,16 +1001,25 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide {
 	vertical-align: middle;
 	height: 550px;
-	background-size: cover;
+	/*background-size: cover;*/
+	position: relative;
 }
 
 #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide h1 {
-	padding: 250px 0;
     text-align: center;
     color: #fff;
     font-weight: 400;
     text-transform: uppercase;
 	font-family: 'Lato', Arial, sans-serif;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	max-width: 300px;
+	margin: 0 auto;
+	padding: 0;
+	min-width: 200px;
+	display: block;
 }
 
 /*--------------------------------------------------------------

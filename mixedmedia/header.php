@@ -57,7 +57,12 @@
     
     $slides = get_posts( $args );
     foreach ( $slides as $slide ) : setup_postdata( $slide ); ?>
-    	<div class="item"> <div class="easy-owl-slide" style="background-image:url('<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>');" alt="<?php the_title(); ?>"><h1><?php the_title(); ?></h1></div></div>
+    	<div class="item"> 
+        	<div class="easy-owl-slide" alt="<?php the_title(); ?>">
+            	<img class="lazyOwl" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>">
+            	<h1><?php the_title(); ?></h1>
+             </div>
+         </div>
     <?php endforeach; 
     wp_reset_postdata();?>
 

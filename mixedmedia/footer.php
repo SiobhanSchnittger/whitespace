@@ -55,18 +55,18 @@ jQuery(document).ready(function() {
 
   jQuery("#header-carousel").owlCarousel({
  
-      navigation : false, // Show next and prev buttons
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      singleItem:true,
- 
-      // "singleItem:true" is a shortcut for:
-      items : <?php echo !empty($easyowl_post_count) ? $easyowl_post_count : 5  ?>
-      // itemsDesktop : false,
-      // itemsDesktopSmall : false,
-      // itemsTablet: false,
-      // itemsMobile : false
- 
+		navigation : false, // Show next and prev buttons
+		slideSpeed : 300,
+		paginationSpeed : 400,
+		singleItem:true,
+		lazyLoad: true,
+		// "singleItem:true" is a shortcut for:
+		items : <?php echo !empty($easyowl_post_count) ? $easyowl_post_count : 5  ?>
+		// itemsDesktop : false,
+		// itemsDesktopSmall : false,
+		// itemsTablet: false,
+		// itemsMobile : false
+		
   });
   
   jQuery('.link').on('click', function(event){
