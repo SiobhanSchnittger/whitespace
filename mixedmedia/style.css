@@ -828,6 +828,10 @@ button.menu-toggle {
 	display: none;
 }
 
+#widget_contact_info-4.widget {
+	margin-bottom: 0 !important;
+}
+
 h2.widget-title {
 	font-family: 'Lato', Arial, Sans-Serif;
 	text-transform: uppercase;
@@ -1097,7 +1101,6 @@ p.site-title {
 .site-footer {
 	font-family: 'Lato', Arial, sans-serif;
 	font-weight: 300;
-	margin-top: 60px;
     padding: 0;
     color: #fff;
     background: #000;
