@@ -443,6 +443,8 @@ table {
     content: " ";
 }
 
+
+
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
@@ -517,6 +519,14 @@ textarea {
 }
 
 /*--------------------------------------------------------------
+# Site Branding
+--------------------------------------------------------------*/
+.site-branding {
+	width: 15%; 
+	float: left;
+}
+
+/*--------------------------------------------------------------
 # Navigation
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
@@ -545,26 +555,28 @@ a:active {
 	outline: 0;
 }
 
+
+
 /*--------------------------------------------------------------
 ## Menus
 --------------------------------------------------------------*/
-
+/*
 .nav-wrap {
-	padding: 50px 0 5px 50px;
+	padding: 0px 0 5px 0;
     margin-right: auto;
     margin-left: auto;
-	min-height: 100px;
+	min-height: 50px;
 	margin-bottom: 0px;
-	border-bottom: 1px solid #ddd;
+	width: 80%;
 
 }
+*/
 
 .main-navigation {
 	clear: both;
 	display: block;
 	float: left;
 	width: 100%;
-	position: absolute;
 }
 
 .main-navigation ul {
@@ -574,9 +586,13 @@ a:active {
 	padding-left: 0;
 }
 
+.main-navigation.toggled ul {
+	display: initial;
+}
+
 .main-navigation li {
-	float: left;
 	position: relative;
+	background-color: #ffffff;
 }
 
 .main-navigation a {
@@ -591,10 +607,6 @@ a:active {
 .main-navigation ul ul {
 	background: #fff;
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-	float: left;
-	position: absolute;
-	left: -999em;
-	z-index: 99999;
 	min-width: 180px;
 }
 
@@ -610,9 +622,12 @@ a:active {
 	padding: 10px 20px;
 }
 
+
+
 .main-navigation > div > ul > li > a {
-	padding: 10px 15px 0;
+	padding: 10px 10px 0px 0px;
 	line-height: 40px;
+	font-size: 90%;
 }
 
 .main-navigation ul ul li {
@@ -647,27 +662,48 @@ a:active {
 }
 
 /* Small menu. */
+
 .menu-toggle,
 .main-navigation.toggled ul {
 	display: block;
+}
+
+button.menu-toggle {
+	background: initial;
     margin: auto;
     position: absolute;
     right: 0;
     top: 0;
     padding-right: 0.9375em;
+	width: 55px;
+	height: 55px;
 }
 
 @media screen and (min-width: 37.5em) {
 	.menu-toggle {
-		background: url("http://advancedmarcomm.com/clients/pyg/wp-content/themes/mixedmedia/images/toggle-menu-icon-50x50.png");
-		display: block;
+		display: none;
 		height: 66px;
 		line-height: 66px;
 		font-size: 0.8125em;
 		padding: 0px 15px 0px 20px;
 	}
+	
+	.main-navigation {
+		position: absolute;
+	}
 	.main-navigation ul {
 		display: block;        
+	}
+	
+	
+	.main-navigation ul ul {
+		background: #fff;
+		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+		float: left;
+		position: absolute;
+		left: -999em;
+		z-index: 99999;
+		min-width: 180px;
 	}
 }
 
@@ -792,6 +828,32 @@ a:active {
 	display: none;
 }
 
+h2.widget-title {
+	font-family: 'Lato', Arial, Sans-Serif;
+	text-transform: uppercase;
+	font-weight: 300;
+	
+}
+
+.contact-info-map-canvas {
+	height: 340px !important;
+}
+
+.confit-address {
+	display: none;
+}
+
+.confit-address, .confit-phone, .confit-hours {
+	font-family: 'Lato', Arial, Sans-Serif;
+	font-weight: 300;	
+	margin-bottom: 5px;
+	margin-left: 15px;
+} 
+
+.confit-address a {
+	margin: 10px 0 0 0;
+	text-decoration: none;
+}
 /*--------------------------------------------------------------
 # Content
 --------------------------------------------------------------*/
@@ -885,7 +947,7 @@ header.page-header {
 }
 
 .page .entry-header {
-	margin:  1.5em 0 0 7.85em;
+	margin:  5.5em 0 0 6.25em;
 }
 
 
@@ -934,6 +996,10 @@ header.page-header {
 	text-transform: uppercase;
 }
 
+.contact-form label span { 
+	font-weight: 300 !important;
+}
+
 .contact-form input[type=email], .contact-form input[type=text] {
 	width: 80% !important;
 }
@@ -951,18 +1017,41 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 	
 }
 
+
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 
 
 #masthead.site-header{
-	position: fixed;
-    top: 0;
     width: 100%;
     z-index: 99999;
     background-color: white;
+	border-bottom: 1px solid #ddd;
 }
+
+
+
+.site-header p a, .site-header p a {
+    display: none;
+}
+
+
+p.site-title {
+	background: url("http://advancedmarcomm.com/clients/pyg/wp-content/uploads/2015/10/pyg-logo-100.png") no-repeat scroll 0 0 transparent;
+	color: transparent;
+	height: 100px;
+	width: 100px;
+	margin: 10px 0 0 25px;
+	
+}
+
+.site-description {
+    display: none;
+}
+
+
 
 /*--------------------------------------------------------------
 # Easy Owl Carousel
@@ -1042,7 +1131,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 }
 
 .site-footer .genericon {
-	font-size: 3em !important;
+	font-size: 2.4em !important;
 }
 
 /*--------------------------------------------------------------
@@ -1155,13 +1244,15 @@ object {
 --------------------------------------------------------------*/
 
 @media only screen and  (min-width: 768px) {
+	
+	
 
 	body {
 		margin-top: 80px;
 	}
 	
 	.page .entry-content {
-		margin: 0 0 0 8%;
+		margin: 0 0 0 8.4%;
 	}
     
     .home-events-posters .upw-posts article {
@@ -1205,7 +1296,55 @@ object {
 
 }
 
-@media (min-width 1024px) {
+@media (min-width: 768px) {
+	#masthead.site-header { 
+		display: table-column; 
+		position: fixed;
+		top: 25px;
+		
+	}
+	
+	
+	.main-navigation li {
+		float: left;
+		position: relative;
+	}
+	
+	.site-branding { 
+		display: table-cell; 
+		width: 15%; 
+		float: left;
+		margin-bottom: 15px;
+	} 
+	
+	.nav-wrap { 
+		display: table-cell; 
+		max-height: 100px; 
+		padding: 0; 
+		margin-left: 100px; 
+		width: 80%; 
+	} 
+	
+	.main-navigation { 
+		clear: both; 
+		display: inline-block; 
+		float: none; 
+		width: 100%; 
+		position: initial; 
+	} 
+	
+	#primary-menu { 
+		display: inline-block; 
+		right: 0; 
+		position: absolute; 
+		bottom: 0; 
+	} 
+	
+	.menu-toggle { 
+		display: none; 
+	}
 	
 }
+
+
 
