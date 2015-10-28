@@ -285,6 +285,8 @@ function mixedmedia_widgets_init() {
 		'after_title'   => '</h3>',
 	));
 	
+	
+	
 
 }
 

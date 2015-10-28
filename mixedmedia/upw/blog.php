@@ -41,17 +41,7 @@
 
           <header>
           
-          	
-   
-            <?php if (current_theme_supports('post-thumbnails') && $instance['show_thumbnail'] && has_post_thumbnail()) : ?>
-              <div class="entry-image">
-                <a href="<?php the_permalink(); ?>" rel="bookmark">
-                  <?php the_post_thumbnail($thumb_size); ?>
-                </a>
-              </div>
-            <?php endif; ?>
-			
-            
+          
 		  	<?php if (get_the_title() && $instance['show_title']) : ?>
               <h4 class="entry-title">
                 <a href="<?php the_permalink(); ?>" rel="bookmark">
@@ -59,7 +49,8 @@
                 </a>
               </h4>
             <?php endif; ?>
-
+            
+            
             <?php if ($instance['show_date'] || $instance['show_author'] || $instance['show_comments']) : ?>
 
               <div class="entry-meta">
@@ -94,6 +85,18 @@
               </div>
 
             <?php endif; ?>
+            
+            
+            
+            <?php if (current_theme_supports('post-thumbnails') && $instance['show_thumbnail'] && has_post_thumbnail()) : ?>
+              <div class="entry-image">
+                <a href="<?php the_permalink(); ?>" rel="bookmark">
+                  <?php the_post_thumbnail($thumb_size); ?>
+                </a>
+              </div>
+            <?php endif; ?>
+
+            
 
           </header>
 
