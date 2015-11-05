@@ -46,21 +46,32 @@
 
 	$easyowl_category = get_post_meta( get_the_ID(), '_easyowl_category_slug', true );
 
-	if(!empty($easyowl_category)){
-	?>
+	if(!empty($easyowl_category)){	?>
 	<div id="header-carousel" class="owl-carousel <?php echo $easyowl_category ?>">
-    
-	<?php
-    
-    
-    $args = array( 'posts_per_page' => 5, 'category_name' => $easyowl_category );
+ 
+	<?php    
+    $args = array( 'posts_per_page' => 4, 'category_name' => $easyowl_category );
     
     $slides = get_posts( $args );
-    foreach ( $slides as $slide ) : setup_postdata( $slide ); ?>
+    foreach ( $slides as $slide ) : setup_postdata( $slide ); 
+		$external_url = get_post_meta( $slide->ID, '_external_link', true );
+		$external_url = !empty($external_url) ? $external_url : get_permalink( $slide->ID );
+        $external_cta = get_post_meta( $slide->ID, '_external_cta', true );
+	?>
     	<div class="item"> 
-        	<div class="easy-owl-slide" alt="<?php the_title(); ?>">
-            	<img class="lazyOwl" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>">
-            	<h1><?php the_title(); ?></h1>
+        	<div class="easy-owl-slide slide-<?php echo $slide->ID; ?>" alt="<?php echo get_permalink($slide); ?>">
+				<a href="<?php echo $external_url; ?>">
+					<div class="lazyOwl owl-lazy" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>"></div>
+				</a>
+				<div class="slide-meta">
+					<h1><a href="<?php echo $external_url; ?>"><?php echo $slide->post_title; ?></a></h1>
+					<h2 class="excerpt"><a href="<?php echo $external_url; ?>"><?php echo get_the_excerpt(); ?></a></h2>	
+                     <?php 
+                    if(!empty($external_cta)) { ?>
+                        <a href="<?php echo $external_url; ?>" class="button slide-cta"><?php echo $external_cta; ?></a>
+                    <?php }
+                    ?>
+				</div>
              </div>
          </div>
     <?php endforeach; 

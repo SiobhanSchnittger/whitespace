@@ -126,6 +126,12 @@ h1 {
 	margin: 0.67em 0;
 }
 
+h2 {
+	font-family: 'Lato', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 300 !important;
+}
+
 mark {
 	background: #ff0;
 	color: #000;
@@ -368,7 +374,6 @@ html {
 }
 
 body {
-	margin-top: 50px;
 	background: #fff; /* Fallback for when there is no custom background color defined. */
 }
 
@@ -457,8 +462,8 @@ input[type="submit"] {
 	border: 1px solid;
 	border-color: #ccc #ccc #bbb;
 	border-radius: 3px;
-	background: #e6e6e6;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 15px 17px rgba(255, 255, 255, 0.5), inset 0 -5px 12px rgba(0, 0, 0, 0.05);
+	background: transparent !important;
+	box-shadow: none !important;
 	color: rgba(0, 0, 0, .8);
 	font-size: 12px;
 	font-size: 0.75rem;
@@ -472,7 +477,7 @@ input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
 	border-color: #ccc #bbb #aaa;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 15px 17px rgba(255, 255, 255, 0.8), inset 0 -5px 12px rgba(0, 0, 0, 0.02);
+	box-shadow: none !important;
 }
 
 button:focus,
@@ -484,7 +489,7 @@ input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active {
 	border-color: #aaa #bbb #bbb;
-	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 5px rgba(0, 0, 0, 0.15);
+	box-shadow: none !important;
 }
 
 input[type="text"],
@@ -492,7 +497,10 @@ input[type="email"],
 input[type="url"],
 input[type="password"],
 input[type="search"],
-textarea {
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+textarea, select {
 	color: #666;
 	border: 2px solid #e55b97;
 	border-radius: 3px;
@@ -520,12 +528,19 @@ textarea {
 	width: 100%;
 }
 
+
+
 /*--------------------------------------------------------------
 # Site Branding
 --------------------------------------------------------------*/
 .site-branding {
 	width: 15%; 
 	float: left;
+}
+
+
+.site-branding a {
+	text-decoration: none;
 }
 
 /*--------------------------------------------------------------
@@ -594,6 +609,9 @@ a:active {
 
 .main-navigation li {
 	position: relative;
+}
+
+.main-navigation li ul{
 	background-color: #ffffff;
 }
 
@@ -681,13 +699,17 @@ button.menu-toggle {
     margin: auto;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 15px;
     padding-right: 0.9375em;
 	width: 55px;
 	height: 55px;
 }
 
-@media screen and (min-width: 37.5em) {
+body.admin-bar button.menu-toggle {
+	top: 60px;
+}
+
+@media screen and (min-width: 768px) {
 	.menu-toggle {
 		display: none;
 		height: 66px;
@@ -879,7 +901,7 @@ h2.widget-title {
 }
 
 .blog-wrap {
-	width: 70%; 
+	width: 80%; 
 	margin: 40px auto 0 auto;
 }
 
@@ -904,6 +926,10 @@ h2.widget-title {
 	
 }
 
+.blog-posts .upw-posts article footer,  .home-events-posters .upw-posts article footer {
+    text-align: left;
+}
+
 
 .row .col-2 article.has-post-video { 
 	width: 100% 
@@ -920,9 +946,12 @@ h2.widget-title {
 
 .event-date {
 	display: block;
+}
+
+.event-date, .tribe-events-list-separator-month > span {
 	font-family: 'Lato';
     font-weight: 400;
-    font-size: 1.7em;
+    font-size: 1.4em;
 	margin-bottom: 15px;
 	color: #e55b97;
 }
@@ -939,6 +968,14 @@ h2.widget-title {
     padding: 10px;
     text-decoration: none;
 }
+
+.tribe-events-list .tribe-events-event-image {
+    float: right;
+    width: 30%;
+    margin: 0 0 0 3%;
+}
+
+
 
 /*--------------------------------------------------------------
 ## Posts and pages
@@ -983,19 +1020,6 @@ h2.entry-title a {
 	display: inline;
 }
 
-header.page-header {
-	margin: 1.5em 0 0 7.85em;
-}
-
-.page .entry-header {
-	margin:  5.5em 0 0 6.25em;
-}
-
-.entry-header {
-	margin:  5.5em 0 0 6.25em;
-}
-
-
 .page-content,
 .entry-content,
 .entry-summary {
@@ -1003,12 +1027,16 @@ header.page-header {
 	text-align: justify;
 }
 
+.entry-content {
+    padding: 0 1.4% 0 1.4%;
+}
+
 .page-links {
 	clear: both;
 	margin: 0 0 1.5em;
 }
 
-p a.button {
+a.button, a.tribe-events-read-more {
 	background: transparent; 
     font-size: 1.2rem; 
     font-family: 'Lato', Arial, sans-serif; 
@@ -1021,6 +1049,12 @@ p a.button {
 	text-decoration: none; 
     padding: .6em 1em 0.6em; 
 	
+}
+
+a.tribe-events-read-more {
+	margin-top: 10px;
+	display: inline-block;
+	font-size: 0.8rem;
 }
 
 /*--------------------------------------------------------------
@@ -1045,23 +1079,23 @@ p a.button {
 /*--------------------------------------------------------------
 ## Contact Us Page
 --------------------------------------------------------------*/
-.contact-form {
+.wpcf7 {
 	margin: 0 !important;
 	padding: 0 !important;
 }
 
-.contact-form label {
+.wpcf7 label {
 	font-family: 'Lato', Arial, sans-serif;
 	font-weight: 300 !important;
 	text-transform: uppercase;
 }
 
-.contact-form label span { 
+.wpcf7 label span { 
 	font-weight: 300 !important;
 }
 
-.contact-form input[type=email], .contact-form input[type=text] {
-	width: 80% !important;
+.wpcf7 input[type=email], .wpcf7 input[type=text], .wpcf7 input[type=date], .wpcf7 input[type=tel], .wpcf7 input[type=number], .wpcf7 select , .wpcf7 textarea {
+	width: 100%;
 }
 
 button, input[type="button"], input[type="reset"], input[type="submit"] {
@@ -1078,8 +1112,31 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 }
 
 
+table.contact tr td {
+	display: block;
+	width: 100%;
+}
 
+/* Table */
 
+table.col-4 tr td p {
+	text-align: left;
+}
+
+table.col-4 tr td {
+	width: 50%;
+	vertical-align: top;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+table.col-4 tr td:first-child {
+	padding-left: 0px;
+}
+
+table.col-4 tr td:last-child {
+	padding-right: 0px;
+}
 
 /*--------------------------------------------------------------
 # Header
@@ -1101,7 +1158,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 
 
 p.site-title {
-	background: url("http://advancedmarcomm.com/clients/pyg/wp-content/uploads/2015/10/pyg-logo-100.png") no-repeat scroll 0 0 transparent;
+	background: url("images/pyg.png") no-repeat scroll 0 0 transparent;
 	color: transparent;
 	height: 90px;
 	width: 90px;
@@ -1119,15 +1176,14 @@ p.site-title {
 /*--------------------------------------------------------------
 # Easy Owl Carousel
 --------------------------------------------------------------*/
-
+/*
 #header-carousel {
-	height: 366px !important;
+	height: 420px !important;
 }
 
 #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide {
 	vertical-align: middle;
-	height: 366px;
-	/*background-size: cover;*/
+	height: 420px;
 	position: relative;
 }
 
@@ -1135,23 +1191,93 @@ p.site-title {
     min-height: 420px;
 	width: 100%;
 }
+*/
 
-#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide h1 {
-    text-align: center;
-    color: #fff;
-    font-weight: 400;
-    text-transform: uppercase;
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide, #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide div.lazyOwl {
+	height: 220px;
+	width: 100%;
+	background-position: 50%;
+	background-size: cover;
+}
+
+@media only screen and  (min-width: 240px) {
+	.wpcf7 input[type=email], .wpcf7 input[type=text], .wpcf7 input[type=date], .wpcf7 input[type=tel], .wpcf7 input[type=number], .wpcf7 select , .wpcf7 textarea {
+	width: 100%;
+}
+}
+
+@media only screen and  (min-width: 480px) {
+	#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide, #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide div.lazyOwl {
+		height: 320px;
+	}
+	
+	.wpcf7 input[type=email], .wpcf7 input[type=text], .wpcf7 input[type=date], .wpcf7 input[type=tel], .wpcf7 input[type=number], .wpcf7 select , .wpcf7 textarea {
+	width: 100%;
+}
+}
+
+@media only screen and  (min-width: 768px) {
+	#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide, #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide div.lazyOwl {
+		height: 420px;
+	}
+	
+	.wpcf7 input[type=email], .wpcf7 input[type=text], .wpcf7 input[type=date], .wpcf7 input[type=tel], .wpcf7 input[type=number], .wpcf7 select , .wpcf7 textarea {
+		width: 100%;
+	}
+}
+
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta {
+    text-align: left;
+    color: #fff;    
 	font-family: 'Lato', Arial, sans-serif;
 	position: absolute;
-	top: 50%;
+	bottom: 0;
 	left: 0;
 	right: 0;
-	max-width: 300px;
+	width: 100%;
 	margin: 0 auto;
-	padding: 0;
-	min-width: 200px;
 	display: block;
+    background: url('images/opacity-50.png') center center repeat;
+    padding: 10px;
 }
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta h1 {
+	margin: 0 0 0 10px;
+	line-height: 1;
+}
+
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta h1 a{
+	text-transform: uppercase;
+	font-weight: 400;  
+	font-size: 70% !important;
+	
+}
+
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta a {
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+    
+}
+
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta h2 {
+	margin: 5px 0 0 10px;
+}
+
+#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta h2 a {
+	text-transform: uppercase;
+	font-weight: 300; 
+	font-size: 70% !important; 
+}
+
+
+
+a.button.slide-cta{
+	display: none;
+}
+
+
+
+
 
 /*--------------------------------------------------------------
 # Footer
@@ -1163,7 +1289,7 @@ p.site-title {
     padding: 0;
     color: #fff;
     background: #000;
-    text-align: center;
+	font-size: 90%;
 }
 
 .site-info {
@@ -1195,6 +1321,20 @@ p.site-title {
 .site-footer .genericon {
 	font-size: 2.4em !important;
 }
+
+/*
+.footer-col-1 {
+	padding-left: 25px;
+}
+
+.footer-col-2 {
+	padding-left: 25px;
+}
+
+.footer-col-3 {
+	padding-left: 25px;
+}
+*/
 
 /*--------------------------------------------------------------
 # Infinite scroll
@@ -1301,6 +1441,61 @@ object {
 	display: block;
 }
 
+.slideshow-window {
+	border-radius: 0 !important;
+}
+
+
+/*--------------------------------------------------------------
+# Events Calendar
+---------------------------------------------------------------*/
+
+#tribe-events .tribe-events-button, .tribe-events-button {
+	color: #666;
+    border: 2px solid #e55b97;
+    border-radius: 3px;
+	background: #fff;
+	
+}
+
+#tribe-events .tribe-events-button:hover, .tribe-ebents-button:hover {
+	color: #666;
+	background: fff;
+	border-color: #ccc #bbb #aaa;
+	box-shadow: none !important;
+}
+
+.single-tribe_events .tribe-events-content {
+	padding: 0 !important;
+}
+
+#tribe-events .tribe-events-button, #tribe-events .tribe-events-button:hover, #tribe_events_filters_wrapper input[type=submit], .tribe-events-button, .tribe-events-button.tribe-active:hover, .tribe-events-button.tribe-inactive, .tribe-events-button:hover, .tribe-events-calendar td.tribe-events-present div[id*=tribe-events-daynum-], .tribe-events-calendar td.tribe-events-present div[id*=tribe-events-daynum-]>a {
+	background-color: #FFF !important;
+}
+
+#tribe-events-content .tribe-events-tooltip h4, #tribe_events_filters_wrapper .tribe_events_slider_val, .single-tribe_events a.tribe-events-gcal, .single-tribe_events a.tribe-events-ical {
+	color: #e55b97 !important;
+}
+
+/*--------------------------------------------------------------
+# Mailchimp Form
+---------------------------------------------------------------*/
+
+.mc4wp-form input[type=date], .mc4wp-form input[type=email], .mc4wp-form input[type=number], .mc4wp-form input[type=tel], .mc4wp-form input[type=text], .mc4wp-form input[type=url], .mc4wp-form select, .mc4wp-form textarea {
+	width: 65% !important;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.mc4wp-form button, .mc4wp-form input[type=button], .mc4wp-form input[type=submit] {
+	color: #fff !important;
+	font-size: 0.65rem !important;
+	border-radius: 0;
+	border: 2px solid #e55b97;
+}
+
+
+
 /*--------------------------------------------------------------
 # Media Specific Rules
 --------------------------------------------------------------*/
@@ -1310,36 +1505,53 @@ object {
 	
 
 	body {
-		margin-top: 80px;
+		margin-top: 68px;
 	}
 	
 	.entry-content {
-		padding: 0 8.4% 0 8.4%;
+		padding: 0 0 0 0;
 	}
 	
 	.page .entry-content {
-		padding: 0 8.4% 0 8.4%;
+		padding: 0 0 0 0;
 	}
     
     .home-events-posters .upw-posts article {
         display: inline-block;
     }
+	
+	.home-events-posters .upw-posts article header {
+        text-align: center;
+    }
+    
+    
 
     .row > .col-1 {
         float: left;
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
-
+	
+	.row > .col-1 > article, .row > .col-2 > article, .row > .col-3 > article, .row > .col-4 > article, .row > .col-1 > div, .row > .col-2 > div, .row > .col-3 > div, .row > .col-4 > div, .row > .col-1 > section, .row > .col-2 > section, .row > .col-3 > section, .row > .col-4 > section {
+        padding: 0 15px;
+	}
+    
+    .row > .col-2:first-child > article, .row > .col-2:first-child > section, .row > .col-2:first-child > div, .row > .col-3:first-child > article, .row > .col-3:first-child > section, .row > .col-3:first-child > div, .row > .col-4:first-child > article, .row > .col-4:first-child > section, .row > .col-4:first-child > div { 
+		padding-left: 0;
+        padding-right: 30px;
+	}
+    
+    
+    .row > .col-2:last-child > article, .row > .col-2:last-child > div, .row > .col-3:last-child > article, .row > .col-3:last-child > div, .row > .col-4:last-child > article, .row > .col-4:last-child > div { 
+		padding-right: 0;
+        padding-left: 30px;
+	}
+	
     .row > .col-2 {
         width: 50%;
         float: left;
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
 
     .row > .col-3 {
@@ -1347,27 +1559,26 @@ object {
         float: left;
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
-
-    .row > .col-4 {
+	
+	.row > .col-4 {
         width: 25%;
         float: left;
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
-
+	
+    .row > .col-2:last-child, .row > .col-3:last-child, .row > .col-4:last-child { 
+		float: right;
+	}
 }
 
 @media (min-width: 768px) {
 	#masthead.site-header { 
 		display: table-column; 
 		position: fixed;
-		top: 25px;
-		
+		top: 0;
+		padding: 10px 105px 0px 105px;
 	}
 	
 	
@@ -1377,22 +1588,22 @@ object {
 	}
 	
 	.site-branding { 
-		display: table-cell; 
-		width: 15%; 
-		float: left;
+		display: block; 		
 		margin-bottom: 0;
+		margin-left: 0;
 	} 
 	
-	.site-branding a {
-		text-decoration: none;
+	p.site-title {
+		margin: 0;
 	}
 	
 	.nav-wrap { 
-		display: table-cell; 
-		max-height: 100px; 
+		display: block; 
+        max-height: 120px;
+        height: 120px;
 		padding: 0; 
 		margin-left: 100px; 
-		width: 80%; 
+		width: 100%; 
 	} 
 	
 	.main-navigation { 
@@ -1405,13 +1616,152 @@ object {
 	
 	#primary-menu { 
 		display: inline-block; 
-		right: 0; 
+		right: 105px; 
 		position: absolute; 
 		bottom: 0; 
 	} 
+	
+	#primary-menu > li:last-child {
+		text-align: right;
+	}
+	
+	.main-navigation > div > ul > li:last-child > a { 
+		padding-right: 0px;
+	}
 	
 	.menu-toggle { 
 		display: none; 
 	}
 	
+	.site-content, .site-footer {
+		padding: 0px 105px !important;
+	}
+    
+    a.button.slide-cta {
+        text-align: center;
+        color: #fff;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-family: 'Lato', Arial, sans-serif;	
+        min-width: 20px;
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        right: 105px;
+        padding: 0.4em;
+    }
+	
+	#header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta {
+		padding: 10px 105px 10px 105px;
+	}
+    
+    #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta h2 {
+        max-width: 75%;
+    }
+    
+    #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta a {
+        font-size: 100%;
+    }
+    
+    header.page-header {
+        margin: 1.5em 0 0 0;
+    }
+
+    .page .entry-header {
+        margin:  5.5em 0 0 0;
+    }
+
+    .entry-header {
+        margin:  5.5em 0 0 0;
+    }
+	
+	.event-wrap, .blog-wrap {
+		width: 100%; 
+		margin: 40px 0 0 0;
+	}
+
+	.home-events-posters .col-3:first-child, .home-events-posters .col-4:first-child {
+		text-align: left;
+	}
+	
+	.home-events-posters .col-3:last-child, .home-events-posters .col-4:last-child {
+		text-align: right;
+	}
+    
+    .events-list.tribe-bar-is-disabled #tribe-events-content-wrapper {
+        max-width: 100%;
+    }
+    
+    .events-list.tribe-bar-is-disabled #tribe-events-content-wrapper, .events-list .tribe-events-loop, .single-tribe_organizer .tribe-events-loop, .single-tribe_venue .tribe-events-loop, .tribe-events-day .tribe-events-loop {
+        max-width: 100%;
+    }
+	
+	table.contact tr td {
+		width: 50%;
+		vertical-align: top;
+		padding: 0 10px;
+		display: table-cell;
+	}
+	
+	table.contact tr td:first-child {
+		padding-left: 0px;
+	}
+	
+	table.contact tr td:last-child {
+		padding-right: 0px;
+	}
+	
+	table.col-4 tr td {
+		width: 25%;
+		vertical-align: top;
+		padding: 0 10px;
+		display: table-cell;
+	}
+	
+	table.col-4 tr td:first-child {
+		padding-left: 0px;
+	}
+	
+	table.col-4 tr td:last-child {
+		padding-right: 0px;
+	}
+}
+
+@media (min-width: 1024px) {
+    
+    #masthead.site-header { 
+		padding: 10px 135px 0px 135px;
+	}
+    
+    .site-branding { 
+        width: 15%; 
+        display: table-cell; 
+		float: left;
+		margin-left: 0;
+	} 
+    
+    #primary-menu { 
+		right: 135px; 
+        top: 20%; 
+	} 
+    
+    .nav-wrap {
+        max-height: 100px;
+        height: 100px;
+        width: 80%; 
+        display: table-cell; 
+    }
+    
+    .site-content, .site-footer {
+		padding: 0px 135px !important;
+	}
+    
+    a.button.slide-cta {
+        right: 135px;
+        padding: .6em 1em 0.6em;
+    }
+    
+    #header-carousel.owl-carousel .owl-wrapper-outer .owl-wrapper .owl-item .item .easy-owl-slide .slide-meta {
+		padding: 10px 135px 10px 135px;
+	}
 }

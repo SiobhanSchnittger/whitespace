@@ -16,19 +16,24 @@
 	<footer id="colophon" class="site-footer" role="contentinfo">
     
     <div class="row">
-			<div class="col-3">
+			<div class="col-4 footer-col-1">
 				<?php if ( is_active_sidebar( 'footer-column-1-sidebar' ) ) { 
 					dynamic_sidebar( 'footer-column-1-sidebar' ); 
 				} ?>
 			</div>
-			<div class="col-3">
+			<div class="col-4 footer-col-2">
 				<?php if ( is_active_sidebar( 'footer-column-2-sidebar' ) ) { 
 					dynamic_sidebar( 'footer-column-2-sidebar' ); 
 				} ?>
 			</div>
-			<div class="col-3 social">
+			<div class="col-4 social footer-col-3">
 				<?php if ( is_active_sidebar( 'footer-column-3-sidebar' ) ) { 
 					dynamic_sidebar( 'footer-column-3-sidebar' ); 
+				} ?>
+			</div>
+            <div class="col-4 footer-col-4">
+				<?php if ( is_active_sidebar( 'footer-column-4-sidebar' ) ) { 
+					dynamic_sidebar( 'footer-column-4-sidebar' ); 
 				} ?>
 			</div>
 		</div>	

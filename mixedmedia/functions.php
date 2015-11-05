@@ -211,16 +211,31 @@ function post_theme_activate(){
 			);
 		}
 		
+		$location = 'right-footer2';
+		$menu_id = null;
+		if (isset($locations[$location])) {
+			$menu_id = $locations[$location];
+		}
+		if(!empty($menu_id)){
+			add_widget_to_sidebar( 'footer-column-4-sidebar', 'nav_menu',
+				array (
+					'nav_menu' 	=> $menu_id
+				)
+			);
+		}
+		
 		register_nav_menus(array(
 			'primary' => __('Primary Navigation'),
 			'left-footer' => __('Left Footer Navigation Menu'),
 			'middle-footer' => __('Middle Footer Navigation Menu'),
 			'right-footer' => __('Right Footer Navigation Menu'),
+			'right-footer2' => __('Right Footer2 Navigation Menu'),
 		));
 	
 		add_menu_to_location('Left Footer Navigation Menu', 'left-footer');
 		add_menu_to_location('Middle Footer Navigation Menu', 'middle-footer');
 		add_menu_to_location('Right Footer Navigation Menu', 'right-footer');
+		add_menu_to_location('Right Footer Navigation Menu', 'right-footer2');
 
 		
 }
@@ -285,8 +300,14 @@ function mixedmedia_widgets_init() {
 		'after_title'   => '</h3>',
 	));
 	
-	
-	
+	register_sidebar(array(
+		'name'          => 'Footer Column 4',
+		'id'            => 'footer-column-4-sidebar',
+		'before_widget' => '<section class="widget %1$s %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3>',
+		'after_title'   => '</h3>',
+	));
 
 }
 
@@ -450,3 +471,125 @@ function event_date_save_meta_box_data( $post_id ) {
 add_action( 'save_post', 'event_date_save_meta_box_data' );
 
  
+/**
+ * Add Meta Box for External Link
+ */
+ 
+ 
+ 
+function external_link_add_meta_box() {
+
+	$screens = array( 'post' );
+
+	foreach ( $screens as $screen ) {
+
+		add_meta_box(
+			'external_link_sectionid',
+			__( 'External Link', '' ),
+			'external_link_meta_box_callback',
+			$screen,
+			'side',
+			'high'
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'external_link_add_meta_box' );
+
+/**
+ * Prints the box content.
+ * 
+ * @param WP_Post $post The object for the current post/page.
+ */
+function external_link_meta_box_callback( $post ) {
+
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'external_link_save_meta_box_data', 'external_link_meta_box_nonce' );
+
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_external_link', true );
+
+	echo '<label for="external_link">';
+	_e( 'External Link', 'external_link_textdomain' );
+	echo '</label> ';
+	echo '<input type="text" id="external_link" name="external_link" value="' . esc_attr( $value ) . '" size="25" />';
+    
+    $value = get_post_meta( $post->ID, '_external_cta', true );
+
+    echo '<br />';
+	echo '<label for="external_cta">';
+	_e( 'Call To Action', 'external_cta_textdomain' );
+	echo '</label> ';
+	echo '<input type="text" id="external_cta" name="external_cta" value="' . esc_attr( $value ) . '" size="25" />';
+
+}
+
+/**
+ * When the post is saved, saves our custom data.
+ *
+ * @param int $post_id The ID of the post being saved.
+ */
+function external_link_save_meta_box_data( $post_id ) {
+
+	/*
+	 * We need to verify this came from our screen and with proper authorization,
+	 * because the save_post action can be triggered at other times.
+	 */
+
+	// Check if our nonce is set.
+	if ( ! isset( $_POST['external_link_meta_box_nonce'] ) ) {
+		return;
+	}
+
+	// Verify that the nonce is valid.
+	if ( ! wp_verify_nonce( $_POST['external_link_meta_box_nonce'], 'external_link_save_meta_box_data' ) ) {
+		return;
+	}
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+	/* OK, it's safe for us to save the data now. */
+	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['external_link'] ) ) {
+		return;
+	}
+
+	// Sanitize user input.
+	$external_link = sanitize_text_field( $_POST['external_link'] );
+    $external_cta = sanitize_text_field( $_POST['external_cta'] );
+
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_external_link', $external_link );
+    update_post_meta( $post_id, '_external_cta', $external_cta );
+	
+	
+}
+add_action( 'save_post', 'external_link_save_meta_box_data' );
+
+
+function tribe_custom_widget_featured_image() {
+	global $post;
+
+	echo tribe_event_featured_image( $post->ID, 'thumbnail' );
+}
+add_action( 'tribe_events_list_widget_before_the_event_title', 'tribe_custom_widget_featured_image' );

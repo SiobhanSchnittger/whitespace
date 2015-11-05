@@ -21,7 +21,7 @@
         <?php $current_post = ($post->ID == $current_post_id && is_single()) ? 'active col-3' : 'col-3'; ?>
 
         <article <?php post_class($current_post); ?>>
-
+			<div>
           <header>
           
           	<?php
@@ -103,7 +103,7 @@
           <?php endif; ?>
 
           <footer>
-
+            <a href="<?php the_permalink(); ?>" class="more-link">Read more</a>
             <?php
             $categories = get_the_term_list($post->ID, 'category', '', ', ');
             if ($instance['show_cats'] && $categories) :
@@ -125,7 +125,7 @@
             <?php endif; ?>
 
           </footer>
-
+			</div>
         </article>
 
       <?php endwhile; ?>

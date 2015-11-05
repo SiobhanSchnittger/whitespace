@@ -38,7 +38,7 @@
         
 		<div class="<?php echo $col_class; ?>">
         <article <?php post_class($current_post); ?>>
-
+		<div>
           <header>
           
           
@@ -138,7 +138,7 @@
             <?php endif; ?>
 
           </footer>
-
+		</div>
         </article>
 		</div>
       <?php 
