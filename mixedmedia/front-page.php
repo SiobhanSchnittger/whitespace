@@ -32,14 +32,14 @@ get_header(); ?>
 		<?php endif; ?>
        
         
-        <div class="row home-events-posters">
+        <div class="home-events-posters">
 				<div class="col-xs-4 col-md-4">
 					<?php if ( is_active_sidebar( 'upcoming-events-sidebar' ) ) { 
 						dynamic_sidebar( 'upcoming-events-sidebar' ); 
 					} ?>
 		</div><!-- #row home-events-posters-->
         
-        <div class="row blog-posts">
+        <div class="blog-posts">
 				<div class="col-xs-4 col-md-4">
 					<?php if ( is_active_sidebar( 'blog-posts-sidebar' ) ) { 
 						dynamic_sidebar( 'blog-posts-sidebar' ); 

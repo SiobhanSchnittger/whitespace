@@ -969,14 +969,6 @@ h2.widget-title {
     text-decoration: none;
 }
 
-.tribe-events-list .tribe-events-event-image {
-    float: right;
-    width: 30%;
-    margin: 0 0 0 3%;
-}
-
-
-
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
@@ -1477,6 +1469,15 @@ object {
 	color: #e55b97 !important;
 }
 
+.tribe-events-loop .tribe-events-content, .tribe-events-list .tribe-events-event-image {
+    float: none !important;
+    width: 100% !important;
+}
+
+.tribe-events-list .tribe-events-event-image {
+    text-align: center;
+}
+
 /*--------------------------------------------------------------
 # Mailchimp Form
 ---------------------------------------------------------------*/
@@ -1524,7 +1525,24 @@ object {
         text-align: center;
     }
     
+    .row {
+        margin-right: -15px !important;
+        margin-left: -15px !important;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
     
+    .row:before {
+        display: table;
+        content: " ";
+    }
+    
+    .row:after {
+        clear: both;
+        display: table;
+        content: " ";
+    }
 
     .row > .col-1 {
         float: left;
@@ -1532,40 +1550,28 @@ object {
         min-height: 1px;
     }
 	
-	.row > .col-1 > article, .row > .col-2 > article, .row > .col-3 > article, .row > .col-4 > article, .row > .col-1 > div, .row > .col-2 > div, .row > .col-3 > div, .row > .col-4 > div, .row > .col-1 > section, .row > .col-2 > section, .row > .col-3 > section, .row > .col-4 > section {
-        padding: 0 15px;
+    .row > .col-1, .row > .col-2, .row > .col-3, .row > .col-4 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
 	}
-    
-    .row > .col-2:first-child > article, .row > .col-2:first-child > section, .row > .col-2:first-child > div, .row > .col-3:first-child > article, .row > .col-3:first-child > section, .row > .col-3:first-child > div, .row > .col-4:first-child > article, .row > .col-4:first-child > section, .row > .col-4:first-child > div { 
-		padding-left: 0;
-        padding-right: 30px;
-	}
-    
-    
-    .row > .col-2:last-child > article, .row > .col-2:last-child > div, .row > .col-3:last-child > article, .row > .col-3:last-child > div, .row > .col-4:last-child > article, .row > .col-4:last-child > div { 
-		padding-right: 0;
-        padding-left: 30px;
-	}
+
 	
     .row > .col-2 {
         width: 50%;
-        float: left;
-        position: relative;
-        min-height: 1px;
     }
 
     .row > .col-3 {
-        width: 33%;
-        float: left;
-        position: relative;
-        min-height: 1px;
+        width: 33.33333333%;
     }
 	
 	.row > .col-4 {
         width: 25%;
-        float: left;
-        position: relative;
-        min-height: 1px;
     }
 	
     .row > .col-2:last-child, .row > .col-3:last-child, .row > .col-4:last-child { 
@@ -1725,6 +1731,20 @@ object {
 	table.col-4 tr td:last-child {
 		padding-right: 0px;
 	}
+    
+    
+    .tribe-events-list .tribe-events-event-image {
+        float: right !important;
+        width: 30%  !important;
+        margin: 0 0 0 3%;
+        text-align: left;
+    }
+
+    .tribe-events-loop .tribe-events-event-info {
+        float: left !important;
+        width: 57% !important;
+        position: relative;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -1741,7 +1761,7 @@ object {
 	} 
     
     #primary-menu { 
-		right: 135px; 
+		right: 165px; 
         top: 20%; 
 	} 
     
@@ -1757,7 +1777,7 @@ object {
 	}
     
     a.button.slide-cta {
-        right: 135px;
+        right: 165px;
         padding: .6em 1em 0.6em;
     }
     

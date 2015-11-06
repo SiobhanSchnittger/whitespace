@@ -65,7 +65,14 @@
 				</a>
 				<div class="slide-meta">
 					<h1><a href="<?php echo $external_url; ?>"><?php echo $slide->post_title; ?></a></h1>
-					<h2 class="excerpt"><a href="<?php echo $external_url; ?>"><?php echo get_the_excerpt(); ?></a></h2>	
+					<?php
+					$excerpt = get_the_excerpt();
+					$excerpt = trim(str_replace('[...]', '', $excerpt));
+					$excerpt = substr($excerpt, 0, 140);
+					$parts = explode(' ', $excerpt);					
+					$excerpt = implode(' ', array_slice($parts, 0, (count($parts) - 1)));
+					?>
+					<h2 class="excerpt"><a href="<?php echo $external_url; ?>"><?php echo $excerpt; ?> [...]</a></h2>	
                      <?php 
                     if(!empty($external_cta)) { ?>
                         <a href="<?php echo $external_url; ?>" class="button slide-cta"><?php echo $external_cta; ?></a>

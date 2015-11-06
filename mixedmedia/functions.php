@@ -590,6 +590,29 @@ add_action( 'save_post', 'external_link_save_meta_box_data' );
 function tribe_custom_widget_featured_image() {
 	global $post;
 
-	echo tribe_event_featured_image( $post->ID, 'thumbnail' );
+	//echo tribe_event_featured_image( $post->ID, 'thumbnail' );
+    $post_id = $post->ID;
+    
+    if ( is_null( $post_id ) ) {
+        $post_id = get_the_ID();
+    }
+
+    $image_html     = get_the_post_thumbnail( $post_id, $size );
+    $featured_image = '';
+
+    //if link is not specifically excluded, then include <a>
+    if ( ! empty( $image_html ) && $link ) {
+        $featured_image .= '<div class="tribe-events-event-image"><a href="' . esc_url( tribe_get_event_link() ) . '">' . $image_html . '</a></div>';
+    } elseif ( ! empty( $image_html ) ) {
+        $featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div><div class="tribe-events-event-info">';
+    }
+    
+    echo $featured_image;
+    add_filter( 'tribe_event_featured_image', '__return_null' );
 }
-add_action( 'tribe_events_list_widget_before_the_event_title', 'tribe_custom_widget_featured_image' );
+add_action( 'tribe_events_before_the_event_title', 'tribe_custom_widget_featured_image' );
+
+function tribe_custom_widget_closing_div() {
+    echo "</div>";
+}
+add_action( 'tribe_events_after_the_content', 'tribe_custom_widget_closing_div' );
