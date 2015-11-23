@@ -380,61 +380,52 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 
-
-function easyowl_scripts() {
-	wp_enqueue_style( 'easyowl-style', get_template_directory_uri(). '/owl-carousel/owl.carousel.css' );
-    wp_enqueue_style( 'easyowl-theme', get_template_directory_uri(). '/owl-carousel/owl.theme.css' );
-    wp_enqueue_style( 'easyowl-transitions', get_template_directory_uri(). '/owl-carousel/owl.transitions.css' );
-	
-	wp_enqueue_script( 'easyowl-script', get_template_directory_uri(). '/owl-carousel/owl.carousel.js', array('jquery'), '20120206', true );
-}
-add_action( 'wp_enqueue_scripts', 'easyowl_scripts' );	
-	
-
- 
-
 /**
- * Adds a box to the main column on the Post and Page edit screens.
+ * Add Neta Box for Event Date
  */
-function link_event_to_video_add_meta_box() {
-
+ 
+ 
+ 
+function event_date_add_meta_box() {
+    if ( !in_category( 'events' )) {
+        return;
+    }
 	$screens = array( 'post' );
 
 	foreach ( $screens as $screen ) {
 
 		add_meta_box(
-			'link_event_to_video_sectionid',
-			__( 'Display Event In Sidebar', '' ),
-			'link_event_to_video_meta_box_callback',
+			'event_date_sectionid',
+			__( 'Event Date', '' ),
+			'event_date_meta_box_callback',
 			$screen,
             'side',
-            'high'
+			'high'
 		);
 	}
 }
-add_action( 'add_meta_boxes', 'link_event_to_video_add_meta_box' );
+add_action( 'add_meta_boxes', 'event_date_add_meta_box');
 
 /**
  * Prints the box content.
  * 
  * @param WP_Post $post The object for the current post/page.
  */
-function link_event_to_video_meta_box_callback( $post ) {
+function event_date_meta_box_callback( $post ) {
 
-     if( ! in_category( 'blog-videos' ) ) { return ;}
 	// Add a nonce field so we can check for it later.
-	wp_nonce_field( 'link_event_to_video_save_meta_box_data', 'link_event_to_video_meta_box_nonce' );
+	wp_nonce_field( 'event_date_save_meta_box_data', 'event_date_meta_box_nonce' );
 
 	/*
 	 * Use get_post_meta() to retrieve an existing value
 	 * from the database and use the value for the form.
 	 */
-	$value = get_post_meta( $post->ID, '_link_event_to_video_event_id', true );
+	$value = get_post_meta( $post->ID, '_event_date', true );
 
-	echo '<label for="link_event_to_video_event_id">';
-	_e( 'Event ID', 'link_event_to_video_textdomain' );
+	echo '<label for="event_date">';
+	_e( 'Event Date', 'event_date_textdomain' );
 	echo '</label> ';
-	echo '<input type="text" id="link_event_to_video_event_id" name="link_event_to_video_event_id" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<input type="date" id="event_date" name="event_date" value="' . esc_attr( $value ) . '" size="25" />';
 
 }
 
@@ -443,7 +434,7 @@ function link_event_to_video_meta_box_callback( $post ) {
  *
  * @param int $post_id The ID of the post being saved.
  */
-function link_event_to_video_save_meta_box_data( $post_id ) {
+function event_date_save_meta_box_data( $post_id ) {
 
 	/*
 	 * We need to verify this came from our screen and with proper authorization,
@@ -451,12 +442,12 @@ function link_event_to_video_save_meta_box_data( $post_id ) {
 	 */
 
 	// Check if our nonce is set.
-	if ( ! isset( $_POST['link_event_to_video_meta_box_nonce'] ) ) {
+	if ( ! isset( $_POST['event_date_meta_box_nonce'] ) ) {
 		return;
 	}
 
 	// Verify that the nonce is valid.
-	if ( ! wp_verify_nonce( $_POST['link_event_to_video_meta_box_nonce'], 'link_event_to_video_save_meta_box_data' ) ) {
+	if ( ! wp_verify_nonce( $_POST['event_date_meta_box_nonce'], 'event_date_save_meta_box_data' ) ) {
 		return;
 	}
 
@@ -482,26 +473,151 @@ function link_event_to_video_save_meta_box_data( $post_id ) {
 	/* OK, it's safe for us to save the data now. */
 	
 	// Make sure that it is set.
-	if ( ! isset( $_POST['link_event_to_video_event_id'] ) ) {
+	if ( ! isset( $_POST['event_date'] ) ) {
 		return;
 	}
 
 	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['link_event_to_video_event_id'] );
+	$my_data = sanitize_text_field( $_POST['event_date'] );
 
 	// Update the meta field in the database.
-	update_post_meta( $post_id, '_link_event_to_video_event_id', $my_data );
-		
+	update_post_meta( $post_id, '_event_date', $my_data );
+	
+	
 }
-add_action( 'save_post', 'link_event_to_video_save_meta_box_data' );
+add_action( 'save_post', 'event_date_save_meta_box_data' );
+
+ 
+/**
+ * Add Meta Box for External Link
+ */
+ 
+ 
+ 
+function external_link_add_meta_box() {
+
+	$screens = array( 'post', 'tribe_events' );
+
+	foreach ( $screens as $screen ) {
+
+		add_meta_box(
+			'external_link_sectionid',
+			__( 'Carousel Settings', '' ),
+			'external_link_meta_box_callback',
+			$screen,
+			'side',
+			'high'
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'external_link_add_meta_box' );
+
+/**
+ * Prints the box content.
+ * 
+ * @param WP_Post $post The object for the current post/page.
+ */
+function external_link_meta_box_callback( $post ) {
+
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'external_link_save_meta_box_data', 'external_link_meta_box_nonce' );
+
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_external_link', true );
+
+	echo '<label for="external_link">';
+	_e( 'External Link', 'external_link_textdomain' );
+	echo '</label> ';
+	echo '<input type="text" id="external_link" name="external_link" value="' . esc_attr( $value ) . '" size="25" />';
+    
+    $value = get_post_meta( $post->ID, '_external_cta', true );
+
+    echo '<br />';
+	echo '<label for="external_cta">';
+	_e( 'Call To Action', 'external_cta_textdomain' );
+	echo '</label> ';
+	echo '<input type="text" id="external_cta" name="external_cta" value="' . esc_attr( $value ) . '" size="25" />';
+
+}
+
+/**
+ * When the post is saved, saves our custom data.
+ *
+ * @param int $post_id The ID of the post being saved.
+ */
+function external_link_save_meta_box_data( $post_id ) {
+
+	/*
+	 * We need to verify this came from our screen and with proper authorization,
+	 * because the save_post action can be triggered at other times.
+	 */
+
+	// Check if our nonce is set.
+	if ( ! isset( $_POST['external_link_meta_box_nonce'] ) ) {
+		return;
+	}
+
+	// Verify that the nonce is valid.
+	if ( ! wp_verify_nonce( $_POST['external_link_meta_box_nonce'], 'external_link_save_meta_box_data' ) ) {
+		return;
+	}
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+	/* OK, it's safe for us to save the data now. */
+	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['external_link'] ) ) {
+		return;
+	}
+
+	// Sanitize user input.
+	$external_link = sanitize_text_field( $_POST['external_link'] );
+    $external_cta = sanitize_text_field( $_POST['external_cta'] );
+
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_external_link', $external_link );
+    update_post_meta( $post_id, '_external_cta', $external_cta );
+
+}
+add_action( 'save_post', 'external_link_save_meta_box_data' );
 
 
+function easyowl_scripts() {
+	wp_enqueue_style( 'easyowl-style', get_template_directory_uri(). '/owl-carousel/owl.carousel.css' );
+    wp_enqueue_style( 'easyowl-theme', get_template_directory_uri(). '/owl-carousel/owl.theme.css' );
+    wp_enqueue_style( 'easyowl-transitions', get_template_directory_uri(). '/owl-carousel/owl.transitions.css' );
+	
+	wp_enqueue_script( 'easyowl-script', get_template_directory_uri(). '/owl-carousel/owl.carousel.js', array('jquery'), '20120206', true );
+}
+add_action( 'wp_enqueue_scripts', 'easyowl_scripts' );	
+	
 /**
  * Adds a box to the main column on the Post and Page edit screens.
  */
 function easyowl_add_meta_box() {
 
-	$screens = array( 'page' );
+	$screens = array( 'page' , 'tribe_events' );
 
 	foreach ( $screens as $screen ) {
 
@@ -812,13 +928,6 @@ function disable_related_my_post_types($allowed_post_types) {
 
 add_filter( 'rest_api_allowed_post_types', 'disable_related_my_post_types' );
 
-function custom_jetpackchange_image_size ( $thumbnail_size ) {
-	$thumbnail_size['width'] = 300;
-	$thumbnail_size['height'] = 150;
-//	$thumbnail_size['crop'] = true;
-	return $thumbnail_size;
-}
-add_filter( 'jetpack_relatedposts_filter_thumbnail_size', 'custom_jetpackchange_image_size' );
 
 function jetpackme_no_related_posts( $options ) {
     if ( get_post_type() == 'tribe_events' ) {
@@ -834,7 +943,7 @@ function customize_upw_orderby_for_tribe_events( $args ) {
     
     if($args['orderby'] == 'meta_value' && $args['meta_key'] == 'event_date') {
         unset($args['meta_key']);
-        $args['orderby']  = 'event_date';        
+        $args['orderby']  = 'event_date';
     }
     
     //file_put_contents(dirname(__FILE__) . '/test.txt', print_r($args, true) . '\n', FILE_APPEND | LOCK_EX);
@@ -844,100 +953,3 @@ function customize_upw_orderby_for_tribe_events( $args ) {
 add_filter( 'upw_wp_query_args', 'customize_upw_orderby_for_tribe_events' );
 
 
-//if ( $query->tribe_is_event_query
-//pre_get_posts
-
-function exclude_category( $query ) {
-    //print_r($query->query_vars);
-    if ( $query->query_vars['orderby'] == 'event_date' && $query->query_vars['posts_per_page'] == 3 ) {
-        $year = date("Y"); 
-        $weekNumber = date("W");    
-        $start_date = date('Y-m-d H:i:s', strtotime('+4 days', strtotime($year.'W'.$weekNumber)));
-        
-        $end_date = date('Y-m-d H:i:s', strtotime($year.'W'.(intval($weekNumber + 1))));
-       
-        $query->set( 'start_date', $start_date );
-        $query->set( 'end_date', $end_date );
-    }
-}
-add_action( 'pre_get_posts', 'exclude_category', 99 );
-
-
-function customize_post_gallery($output, $attr) {
-    // Initialize
-	global $post, $wp_locale;
- 
-
-	return $output . '<div>test</div>';
-}
-
-
-function display_event_on_frontpage_add_meta_box() {
-
-	$screens = array( 'tribe_events' );
-
-	foreach ( $screens as $screen ) {
-
-		add_meta_box(
-			'display_event_on_frontpage_sectionid',
-			__( 'Display Event In Frontpage Slider', '' ),
-			'display_event_on_frontpage_meta_box_callback',
-			$screen,
-            'side',
-            'high'
-		);
-	}
-}
-add_action( 'add_meta_boxes', 'display_event_on_frontpage_add_meta_box' );
-
-function display_event_on_frontpage_meta_box_callback( $post ) {
-	wp_nonce_field( 'display_event_on_frontpage_save_meta_box_data', 'display_event_on_frontpage_meta_box_nonce' );
-
-	$value = get_post_meta( $post->ID, '_display_event_on_frontpage_event_id', true );
-
-	?>
-    <label for="display_event_on_frontpage_event_id">
-        <?php _e( 'Display', 'display_event_on_frontpage_textdomain' ); ?>
-	
-	<input type="checkbox" 
-        id="display_event_on_frontpage_event_id" 
-        name="display_event_on_frontpage_event_id" 
-        value="yes" 
-        <?php if ($value == 'yes' ) { ?> checked <?php } ?>
-        />
-    </label>
-    <?php
-}
-
-function display_event_on_frontpage_save_meta_box_data( $post_id ) {
-	if ( ! isset( $_POST['display_event_on_frontpage_meta_box_nonce'] ) ) {
-		return;
-	}
-
-	if ( ! wp_verify_nonce( $_POST['display_event_on_frontpage_meta_box_nonce'], 'display_event_on_frontpage_save_meta_box_data' ) ) {
-		return;
-	}
-
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-
-
-	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
-		if ( ! current_user_can( 'edit_page', $post_id ) ) {
-			return;
-		}
-	} else {
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
-	}
-
-	if( isset( $_POST[ 'display_event_on_frontpage_event_id' ] ) ) {
-        update_post_meta( $post_id, '_display_event_on_frontpage_event_id', 'yes' );
-    } else {
-        update_post_meta( $post_id, '_display_event_on_frontpage_event_id', '' );
-    }
-		
-}
-add_action( 'save_post', 'display_event_on_frontpage_save_meta_box_data' );

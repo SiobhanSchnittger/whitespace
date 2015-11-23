@@ -22,7 +22,7 @@
 
         <?php $current_post = ($post->ID == $current_post_id && is_single()) ? 'active' : ''; 
 		$col_class = 'col-4';
-		$thumb_size = 'thumbnail';
+		$thumb_size = $instance['thumb_size'];
 		if($upw_query->post_count > 5) {
 			if($counter < 2) {
 				$col_class = 'col-2';
@@ -89,7 +89,7 @@
             
             
             <?php if (current_theme_supports('post-thumbnails') && $instance['show_thumbnail'] && has_post_thumbnail()) : ?>
-              <div class="entry-image">
+              <div class="entry-image <?php echo $instance['thumb_size']; ?>">
                 <a href="<?php the_permalink(); ?>" rel="bookmark">
                   <?php the_post_thumbnail($thumb_size); ?>
                 </a>

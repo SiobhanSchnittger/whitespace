@@ -43,47 +43,101 @@
         </div><!-- #nav-wrap -->
 	</header><!-- #masthead -->
     <?php 
-
-	$easyowl_category = get_post_meta( get_the_ID(), '_easyowl_category_slug', true );
-
-	if(!empty($easyowl_category)){	?>
-	<div id="header-carousel" class="owl-carousel <?php echo $easyowl_category ?>">
- 
-	<?php    
-    $args = array( 'posts_per_page' => 4, 'category_name' => $easyowl_category );
+    if ( is_front_page() ) {	
     
-    $slides = get_posts( $args );
-    foreach ( $slides as $slide ) : setup_postdata( $slide ); 
-		$external_url = get_post_meta( $slide->ID, '_external_link', true );
-		$external_url = !empty($external_url) ? $external_url : get_permalink( $slide->ID );
-        $external_cta = get_post_meta( $slide->ID, '_external_cta', true );
-	?>
-    	<div class="item"> 
-        	<div class="easy-owl-slide slide-<?php echo $slide->ID; ?>" alt="<?php echo get_permalink($slide); ?>">
-				<a href="<?php echo $external_url; ?>">
-					<div class="lazyOwl owl-lazy" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>"></div>
-				</a>
-				<div class="slide-meta">
-					<h1><a href="<?php echo $external_url; ?>"><?php echo $slide->post_title; ?></a></h1>
-					<?php
-					$excerpt = get_the_excerpt();
-					$excerpt = trim(str_replace('[...]', '', $excerpt));
-					$excerpt = substr($excerpt, 0, 140);
-					$parts = explode(' ', $excerpt);					
-					$excerpt = implode(' ', array_slice($parts, 0, (count($parts) - 1)));
-					?>
-					<h2 class="excerpt"><a href="<?php echo $external_url; ?>"><?php echo $excerpt; ?> [...]</a></h2>	
-                     <?php 
-                    if(!empty($external_cta)) { ?>
-                        <a href="<?php echo $external_url; ?>" class="button slide-cta"><?php echo $external_cta; ?></a>
-                    <?php }
-                    ?>
-				</div>
+            //posts_per_page    
+            ?>
+            <div id="header-carousel" class="owl-carousel">
+            <?php
+            $external_cta = 'Buy Tickets';
+            $events = tribe_get_events(array( 
+                'posts_per_page' => 4, 
+                'meta_key'   => '_display_event_on_frontpage_event_id',
+                'meta_value' => 'yes'
+            ));
+            foreach ( $events as $slide ) : setup_postdata( $slide ); 
+                $external_url = tribe_get_event_website_url( $slide->ID);
+                $external_url = !empty($external_url) ? $external_url : get_permalink( $slide->ID );
+                ?>
+            
+                <div class="item"> 
+                    <div class="easy-owl-slide slide-<?php echo $slide->ID; ?>">
+                        <a href="<?php echo $external_url; ?>">
+                            <div class="lazyOwl owl-lazy" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>"></div>
+                        </a>
+                        <div class="slide-meta">                         
+                            <?php if(!empty($external_cta)) { ?>
+                                <a href="<?php echo $external_url; ?>" class="button slide-cta" target="_blank"><?php echo $external_cta; ?></a>
+                            <?php }
+                            ?>
+                        </div>
+                     </div>
+                </div>
+            <?php
+            endforeach;            
+            ?>
+            </div>
+            <?php
+    }
+    else {
+        $easyowl_category = get_post_meta( get_the_ID(), '_easyowl_category_slug', true );
+        $easyowl_post_count = get_post_meta( get_the_ID(), '_easyowl_post_count', true );
+        if(empty($easyowl_post_count)) {
+            $easyowl_post_count = 4;
+        }
+        if(!empty($easyowl_category)){	?>
+        <div id="header-carousel" class="owl-carousel <?php echo $easyowl_category ?>">
+     
+        <?php    
+        $args = array( 'posts_per_page' => $easyowl_post_count, 'category_name' => $easyowl_category );
+        
+        $slides = get_posts( $args );
+        foreach ( $slides as $slide ) : setup_postdata( $slide ); 
+            $external_url = get_post_meta( $slide->ID, '_external_link', true );
+            $external_url = !empty($external_url) ? $external_url : get_permalink( $slide->ID );
+            $external_cta = get_post_meta( $slide->ID, '_external_cta', true );
+        ?>
+            <div class="item"> 
+                <div class="easy-owl-slide slide-<?php echo $slide->ID; ?>">
+                    <a href="<?php echo $external_url; ?>">
+                        <div class="lazyOwl owl-lazy" data-src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>"></div>
+                    </a>
+                    <div class="slide-meta">
+                        <h1><a href="<?php echo $external_url; ?>"><?php echo $slide->post_title; ?></a></h1>
+                        <?php
+                        $excerpt = get_the_excerpt();
+                        $excerpt = trim(str_replace('[...]', '', $excerpt));
+                        $excerpt = substr($excerpt, 0, 140);
+                        $parts = explode(' ', $excerpt);					
+                        $excerpt = implode(' ', array_slice($parts, 0, (count($parts) - 1)));
+                        ?>
+                        <h2 class="excerpt"><a href="<?php echo $external_url; ?>"><?php echo $excerpt; ?> [...]</a></h2>	
+                         <?php 
+                        if(!empty($external_cta)) { ?>
+                            <a href="<?php echo $external_url; ?>" class="button slide-cta" target="_blank"><?php echo $external_cta; ?></a>
+                        <?php }
+                        ?>
+                    </div>
+                 </div>
              </div>
-         </div>
-    <?php endforeach; 
-    wp_reset_postdata();?>
-
-    </div>
-    <?php } ?>
+        <?php endforeach; ?>    
+        </div>
+        <?php } ?>
+    <?php 
+    }
+    $post_type = get_queried_object();
+    ?>
+    <?php 
+    if ( in_category( 'events' ) || in_category( 'blog-videos' ) || in_category('from-the-blog') || is_page_template( 'banner-template.php' )){        
+        if ( has_post_thumbnail() ) { 
+             $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
+            ?><div class="banner-image" style="background-image: url('<?php echo $featured_image[0]; ?>');"></div><?php
+        } 
+    } else  if ( $post_type->post_type == 'tribe_events' && is_single() == 1) {      
+        $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id($post_type->ID), 'full');
+        if ( isset($featured_image) ) { 
+             ?><div class="banner-image" style="background-image: url('<?php echo $featured_image[0]; ?>');"></div><?php
+        } 
+    }
+    ?>
 	<div id="content" class="site-content">

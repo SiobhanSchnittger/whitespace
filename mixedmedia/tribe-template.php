@@ -54,7 +54,18 @@ get_header(); ?>
 						?>
 						</div>
 						<div class="event-poster">
-							<img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($slide->ID) ); ?>" />
+                            <a href="<?php the_permalink(); ?>" rel="bookmark">
+                            
+                                <?php if (class_exists('MultiPostThumbnails')) :
+                                MultiPostThumbnails::the_post_thumbnail(
+                                    get_post_type(),
+                                    'side-poster-image',
+                                    NULL,
+                                    'event-side-poster'
+                                );
+                                endif; ?>
+               
+                            </a>
 						</div>
 						
 					</div><!-- .entry-content -->
